@@ -1,0 +1,23 @@
+#ifndef SENSORS_RI
+#define SENSORS_RI
+
+#include <base.h>
+
+// Optical sensors
+#define ROSen A5
+#define FOSen A3
+#define LOSen A1
+
+// Optical sensor filter
+#define MaxValuesCnt 10
+typedef struct tRolAvrg
+{
+	U16 values[MaxValuesCnt];
+	U8  index;
+} RolingAverage;
+
+void 	RolingAvrgAddValue(U16 value, RolingAverage *buffer);
+U16 	RolingAvrgGetValue(RolingAverage *buffer);
+void 	FillSensorBuf(S16 sensorId, RolingAverage *filter);
+
+#endif
