@@ -1,12 +1,13 @@
 #include <PID_v1.h>
 #include <base.h>
 #include <Sensors_I.h>
+#include <Motors_I.h>
 
 //#define SERDEBUG
 //#define MOTORSTREIGHT
 
 double input, output, setPoint;
-PID control(&input, &output, &setPoint, 1, 1, 7, DIRECT); // 0.3, 0, 7
+PID control(&input, &output, &setPoint, 0.5, 0.3, 3.4, DIRECT); // 0.3, 0, 7
 
 #ifdef SERDEBUG
 U16 sen1, sen2;
@@ -14,7 +15,7 @@ U16 sen1, sen2;
 
 void setup()
 {
-  InitPinRegs();
+  Init();
   
   #ifdef SERDEBUG
   Serial.begin(9600);
@@ -40,8 +41,7 @@ void loop()
   
   #ifndef MOTORSTREIGHT
   // motors normal opeation
-  SetMotorDirection(Left, Forward, int(output));
-  SetMotorDirection(Right, Forward, 255 - int(output));
+  ProcessMotors(int(output));
   #else
   // motors set to same speed for streight forward motion
   SetMotorDirection(Left, Forward, 200);
@@ -49,7 +49,7 @@ void loop()
   #endif
 }
 
-void InitPinRegs(void)
+void Init(void)
 {
   PORTB = 0;
   PORTD = 0;
