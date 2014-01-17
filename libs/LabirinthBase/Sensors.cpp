@@ -11,7 +11,7 @@ static U16 lSenVal = 0;
 static U16 rSenVal = 0;
 
 // Public functions
-void	InitSensors(void)
+void InitSensors(void)
 {
 	  pinMode(LOSen, INPUT);
 	  pinMode(FOSen, INPUT);

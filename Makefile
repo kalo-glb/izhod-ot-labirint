@@ -1,13 +1,16 @@
-LIBS = /home/kalo/sketchbook/libraries
+ARDUINOLIBS = /home/kalo/sketchbook/libraries
 
 getLibs:
 	rm -r ./libs;
-	cp -R $(LIBS) ./libs
+	cp -R $(ARDUINOLIBS) ./libs
 
-comit: getLibs
-	git comit -m $MESSAGE
+commit: getLibs
+	git commit -m $(MESSAGE)
+    
+push:
+	git push -u origin master
     
 setLibs:
-	rm -r /home/kalo/sketchbook/libraries
-	cp ./libs /home/kalo/sketchbook/libraries
+	rm -r $(ARDUINOLIBS)
+	cp ./libs $(ARDUINOLIBS)
 
