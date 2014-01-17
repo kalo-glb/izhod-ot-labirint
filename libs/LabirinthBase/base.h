@@ -12,22 +12,11 @@
 #define S32 signed long
 
 // Motors
-#define LMotorF 3
-#define LMotorB 9
-#define RMotorF 5
-#define RMotorB 6
 
-#define Left  	0
-#define Right 	1
-#define Forward 0
-#define Back	1
 
 #define SpeedStep 40
 #define RightTurnTime 	400
 #define CompensateLeftMotor 200
-
-void 	SetMotorDirection(U8 motor, U8 direction, U8 speed);
-U8 		CompensateMotor(U8 speed, U8 factorFrom255);
 
 #define LeftTarget            550
 #define LeftTargetOffset       70

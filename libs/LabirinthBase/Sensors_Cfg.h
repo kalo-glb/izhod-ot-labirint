@@ -1,6 +1,5 @@
-#ifndef SENSORS_RI
-#define SENSORS_RI
-
+#ifndef SENSORS_CFG
+#define SENSORS_CFG
 #include <base.h>
 
 // Optical sensors
