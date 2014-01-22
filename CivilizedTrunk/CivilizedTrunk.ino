@@ -7,7 +7,7 @@
 //#define MOTORSTREIGHT
 
 double input, output, setPoint;
-PID control(&input, &output, &setPoint, 0.5, 0.3, 3.4, DIRECT); // 0.3, 0, 7
+PID control(&input, &output, &setPoint, 0.5, 0.5, 3.9, DIRECT); // 0.3, 0, 7
 
 #ifdef SERDEBUG
 U16 sen1, sen2;
@@ -44,8 +44,17 @@ void loop()
   ProcessMotors(int(output));
   #else
   // motors set to same speed for streight forward motion
-  SetMotorDirection(Left, Forward, 200);
-  SetMotorDirection(Right, Forward, 200);
+  static boolean phase = 0;
+  if(phase == 1)
+  {
+    ProcessMotors(127);
+    phase = 0;
+  }
+  else
+  {
+    ProcessMotors(128);
+    phase = 1;
+  }
   #endif
 }
 
