@@ -8,7 +8,7 @@
 #define LOSen A1
 
 // Optical sensor filter
-#define MaxValuesCnt 10
+#define MaxValuesCnt 8
 typedef struct tRolAvrg
 {
 	U16 values[MaxValuesCnt];
@@ -18,5 +18,6 @@ typedef struct tRolAvrg
 void 	RolingAvrgAddValue(U16 value, RolingAverage *buffer);
 U16 	RolingAvrgGetValue(RolingAverage *buffer);
 void 	FillSensorBuf(S16 sensorId, RolingAverage *filter);
+U16		LineariseSensor(U16 filteredValue);
 
 #endif

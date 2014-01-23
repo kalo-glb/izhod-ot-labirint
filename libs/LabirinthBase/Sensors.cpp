@@ -21,9 +21,9 @@ void InitSensors(void)
 void ProcessSensors(void)
 {
 	  // read sensors
-	  FillSensorBuf(FOSen, &forwardFilt);
-	  FillSensorBuf(LOSen, &leftFilt);
-	  FillSensorBuf(ROSen, &rightFilt);
+	RolingAvrgAddValue(analogRead(FOSen), &forwardFilt);
+	RolingAvrgAddValue(analogRead(LOSen), &leftFilt);
+	RolingAvrgAddValue(analogRead(ROSen), &rightFilt);
 }
 
 double GetPIDInput(void)
@@ -33,27 +33,24 @@ double GetPIDInput(void)
 	lSenVal = RolingAvrgGetValue(&leftFilt);
 	rSenVal = RolingAvrgGetValue(&rightFilt);
 	
-	result = (double)((1200 + lSenVal) - rSenVal - 280);
+	result = (double)((1200 + lSenVal) - rSenVal - 100);
 	
 	return result;
 }
 
 U16 GetForwardSensor(void)
 {
-	fSenVal = RolingAvrgGetValue(&forwardFilt);
-	return fSenVal;
+	return RolingAvrgGetValue(&forwardFilt);
 }
 
 U16 GetLeftSensor(void)
 {
-	lSenVal = RolingAvrgGetValue(&leftFilt);
-	return lSenVal;
+	return RolingAvrgGetValue(&leftFilt);
 }
 
 U16 GetRightSensor(void)
 {
-	rSenVal = RolingAvrgGetValue(&rightFilt);
-	return rSenVal;
+	return RolingAvrgGetValue(&rightFilt);
 }
 
 // Private functions

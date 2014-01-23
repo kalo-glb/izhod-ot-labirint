@@ -24,7 +24,7 @@ void SetMotorDirection(U8 motor, U8 direction, U8 speed)
 	
 	if(Right == motor)
 	{
-		speed = CompensateMotor(speed, 230); // 238
+		//speed = CompensateMotor(speed, 240); // 238
 		if(Forward == direction)
 		{
 			digitalWrite(RMotorB, 0);
