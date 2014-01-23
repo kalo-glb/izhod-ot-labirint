@@ -1,7 +1,7 @@
 ARDUINOLIBS = /home/kalo/sketchbook/libraries
 
 getLibs:
-	rm -r ./libs;
+	rm -r -f ./libs;
 	cp -R $(ARDUINOLIBS) ./libs
 
 commit: getLibs
@@ -11,6 +11,6 @@ push:
 	git push -u origin master
     
 setLibs:
-	rm -r $(ARDUINOLIBS)
-	cp ./libs $(ARDUINOLIBS)
+	rm -r -f $(ARDUINOLIBS)
+	cp -R ./libs $(ARDUINOLIBS)
 

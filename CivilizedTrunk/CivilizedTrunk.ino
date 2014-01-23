@@ -2,12 +2,13 @@
 #include <base.h>
 #include <Sensors_I.h>
 #include <Motors_I.h>
+#include <Comunication_I.h>
 
 //#define SERDEBUG
 //#define MOTORSTREIGHT
 
 double input, output, setPoint;
-PID control(&input, &output, &setPoint, 0.5, 0.5, 3.9, DIRECT); // 0.3, 0, 7
+PID control(&input, &output, &setPoint, 0.5, 0.5, 3.9, DIRECT);
 
 #ifdef SERDEBUG
 U16 sen1, sen2;
@@ -32,9 +33,9 @@ void loop()
   
   #ifdef SERDEBUG
   Serial.println(input);
-  sen1 = GetLeftSensor();
-  sen2 = GetRightSensor();
-  PrintSensors(sen1, sen2, 0);
+  //sen1 = GetLeftSensor();
+  //sen2 = GetRightSensor();
+  //PrintSensors(sen1, sen2, 0);
   #endif
   
   control.Compute();
