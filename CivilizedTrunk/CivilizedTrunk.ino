@@ -4,11 +4,11 @@
 #include <Motors_I.h>
 #include <Comunication_I.h>
 
-//#define SERDEBUG
+#define SERDEBUG
 //#define MOTORSTREIGHT
 
 double input, output, setPoint;
-PID control(&input, &output, &setPoint, 0.5, 0.5, 3.9, DIRECT);
+PID control(&input, &output, &setPoint, 0.5, 0.1, 3.9, DIRECT);
 
 #ifdef SERDEBUG
 U16 sen1, sen2;
@@ -19,10 +19,10 @@ void setup()
   Init();
   
   #ifdef SERDEBUG
-  Serial.begin(9600);
+  Serial.begin(115200);
   #endif
 
-  setPoint = 1200;
+  setPoint = PIDSetPoint;
 }
 
 void loop()
