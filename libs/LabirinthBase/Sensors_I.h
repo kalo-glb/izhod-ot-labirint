@@ -11,4 +11,7 @@ U16 	GetForwardSensor(void);
 U16		GetLeftSensor(void);
 U16		GetRightSensor(void);
 
+// Debug
+void 	PrintSensors(U16 s1, U16 s2, U16 s3);
+
 #endif // SENSORS_INTERFACE

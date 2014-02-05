@@ -30,27 +30,27 @@ double GetPIDInput(void)
 {
 	double result = 0;
 	
-	lSenVal = RolingAvrgGetValue(&leftFilt);
-	rSenVal = RolingAvrgGetValue(&rightFilt);
+	lSenVal = GetLeftSensor();
+	rSenVal = GetRightSensor();
 	
-	result = (double)((1200 + lSenVal) - rSenVal - 100);
+	result = (double)((PIDSetPoint + lSenVal) - rSenVal);
 	
 	return result;
 }
 
 U16 GetForwardSensor(void)
 {
-	return RolingAvrgGetValue(&forwardFilt);
+	return GetDistCentimetres(&forwardFilt);
 }
 
 U16 GetLeftSensor(void)
 {
-	return RolingAvrgGetValue(&leftFilt);
+	return GetDistCentimetres(&leftFilt) + LeftSensorCompensation;
 }
 
 U16 GetRightSensor(void)
 {
-	return RolingAvrgGetValue(&rightFilt);
+	return (GetDistCentimetres(&rightFilt) + RightSensorCompensation);
 }
 
 // Private functions
@@ -81,4 +81,30 @@ void FillSensorBuf(S16 sensorId, RolingAverage *filter)
     sen = analogRead(sensorId);
     RolingAvrgAddValue(sen, filter);
   }
+}
+
+U16 GetDistCentimetres(RolingAverage *filter)
+{
+	float filtValue = RolingAvrgGetValue(filter);
+	if (filtValue > 600) // lower boundary: 4 cm (3 cm means under the boundary)
+	{
+		return (4);
+	}
+	
+	if (filtValue < 80 ) //upper boundary: 36 cm (returning 37 means over the boundary)
+	{
+		return (37);
+	}
+	return ((1 / (0.0002391473 * filtValue - 0.0100251467))*10);
+}
+
+// Debug
+void PrintSensors(U16 s1, U16 s2, U16 s3)
+{
+	Serial.print("s1 : ");
+	Serial.print(s1);
+	Serial.print("s2 : ");
+	Serial.print(s2);
+	Serial.print("s3 : ");
+	Serial.println(s3);
 }

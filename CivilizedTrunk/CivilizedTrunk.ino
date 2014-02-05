@@ -4,11 +4,11 @@
 #include <Motors_I.h>
 #include <Comunication_I.h>
 
-#define SERDEBUG
+//#define SERDEBUG
 //#define MOTORSTREIGHT
 
 double input, output, setPoint;
-PID control(&input, &output, &setPoint, 0.5, 0.1, 3.9, DIRECT);
+PID control(&input, &output, &setPoint, 0.5, 0.1, 3.5, DIRECT);
 
 #ifdef SERDEBUG
 U16 sen1, sen2;
@@ -31,14 +31,16 @@ void loop()
 
   input = GetPIDInput();
   
+  control.Compute();
+  
   #ifdef SERDEBUG
   Serial.println(input);
-  //sen1 = GetLeftSensor();
-  //sen2 = GetRightSensor();
-  //PrintSensors(sen1, sen2, 0);
-  #endif
   
-  control.Compute();
+  sen1 = GetLeftSensor();
+  sen2 = GetRightSensor();
+  PrintSensors(sen1, sen2, output);
+  
+  #endif
   
   #ifndef MOTORSTREIGHT
   // motors normal opeation
@@ -78,14 +80,4 @@ void Init(void)
   control.SetSampleTime(5);
   control.SetMode(AUTOMATIC);
   control.SetOutputLimits(0, 255);
-}
-
-void PrintSensors(U16 s1, U16 s2, U16 s3)
-{
-	Serial.print("s1 : ");
-	Serial.print(s1);
-	Serial.print("s2 : ");
-	Serial.print(s2);
-	Serial.print("s3 : ");
-	Serial.println(s3);
 }

@@ -15,9 +15,12 @@ typedef struct tRolAvrg
 	U8  index;
 } RolingAverage;
 
+#define RightSensorCompensation (-70)
+#define LeftSensorCompensation 15
+
 void 	RolingAvrgAddValue(U16 value, RolingAverage *buffer);
 U16 	RolingAvrgGetValue(RolingAverage *buffer);
 void 	FillSensorBuf(S16 sensorId, RolingAverage *filter);
-U16		LineariseSensor(U16 filteredValue);
+U16 	GetDistCentimetres(RolingAverage *filter);
 
 #endif

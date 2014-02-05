@@ -11,9 +11,10 @@
 #define U32 unsigned long
 #define S32 signed long
 
+// optical sensor
+#define PIDSetPoint 300
+
 // Motors
-
-
 #define SpeedStep 40
 #define RightTurnTime 	400
 #define CompensateLeftMotor 200
@@ -48,6 +49,6 @@ Signal	MakeDecision(U16 lSen, U16 fSen);
 // Debug
 void printSignal(Signal signal);
 void printMotors(U8 motor, U8 direction, U8 speed);
-void PrintSensors(U16 s1, U16 s2, U16 s3);
+
 
 #endif
